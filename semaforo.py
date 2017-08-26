@@ -365,7 +365,6 @@ if __name__ == '__main__':
 	data = np.load('./installationFiles/heroes.npy')
 	print(data)
 	semaforo = CreateSemaforo(periodoSemaforo = 0)
-	#poligono = [(171,59),(250,60),(247,83),(252,116),(171,112),(171,55)]
 	poligono  = data[0]
 	print(data[0])
 	while True:
