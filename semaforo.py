@@ -202,8 +202,8 @@ class Real(Semaforo):
 		self.upper_red = np.array([180,255,255], dtype=np.uint8)
 
 		# GREEN range
-		self.lower_green = np.array([70,150,0], dtype=np.uint8)
-		self.upper_green = np.array([90,255,255], dtype=np.uint8)
+		self.lower_green = np.array([70,0,0], dtype=np.uint8)
+		self.upper_green = np.array([90,180,255], dtype=np.uint8)
 
 		# SOME VARIABLES for SVM, if retrain the SVM in another
 		# resolution, change this val to this resolution.
@@ -237,11 +237,25 @@ class Real(Semaforo):
 		# Put the mask and filter the R, Y , G colors in _imagen_
 		res = cv2.bitwise_and(img,img, mask= full_mask)
 
+
+
+		#res = cv2.GaussianBlur(res,(15,15),2)
+
+		#res = cv2.medianBlur(res,15)
+
+		#res = cv2.bilateralFilter(res,30,75,75,75/2)
+		res = cv2.bilateralFilter(res,35,75,75)
+
+
+
+
+		cv2.imshow('res', cv2.resize(res,(res.shape[1]*5,res.shape[0]*5)))
 		###########################
 		# SVM PART (CLASSIFICATION) ML PROCESS
 		###########################
 		img = cv2.resize(res, self.SHAPE, interpolation = cv2.INTER_CUBIC)
 
+		cv2.imshow('res2', cv2.resize(img,(img.shape[1]*5,img.shape[0]*5)))
 		# LitleDebug for see what is the SVM seeing
 		#cv2.imwrite('red2.jpg', img)
 
@@ -361,8 +375,8 @@ class CreateSemaforo(Semaforo):
 
 
 if __name__ == '__main__':
-	cap = cv2.VideoCapture('./installationFiles/heroes.mp4')
-	data = np.load('./installationFiles/heroes.npy')
+	cap = cv2.VideoCapture('./installationFiles/sar.mp4')
+	data = np.load('./installationFiles/sar.npy')
 	print(data)
 	semaforo = CreateSemaforo(periodoSemaforo = 0)
 	poligono  = data[0]
