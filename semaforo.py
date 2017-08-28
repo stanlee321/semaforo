@@ -375,8 +375,8 @@ class CreateSemaforo(Semaforo):
 
 
 if __name__ == '__main__':
-	cap = cv2.VideoCapture('./installationFiles/sar.mp4')
-	data = np.load('./installationFiles/sar.npy')
+	cap = cv2.VideoCapture('./installationFiles/heroes.mp4')
+	data = np.load('./installationFiles/heroes.npy')
 	print(data)
 	semaforo = CreateSemaforo(periodoSemaforo = 0)
 	poligono  = data[0]
